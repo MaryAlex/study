@@ -39,8 +39,6 @@ public class Search extends Thread {
 
     @Override
     public void run() {
-        findedPath = null;
-        findedPath = new ArrayList<String>();
         func(path);
         if (findedPath.size() <= 0) {
             findedPath.add("No files found :(");
