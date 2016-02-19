@@ -41,8 +41,6 @@ public class Window extends JFrame {
 
     public Window() throws HeadlessException {
         super("Hello");
-        firstSearch = new Search();
-        secondSearch = new Search();
         setContentPane(panel);
 
         pack();
@@ -74,29 +72,37 @@ public class Window extends JFrame {
         pause1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                firstSearch.stop();
-//                firstSearch.pause();
+                if (firstSearch != null ) {
+//                    firstSearch.stop();
+                    firstSearch.pause();
+                }
             }
         });
         pause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                secondSearch.stop();
-//                secondSearch.pause();
+                if (secondSearch != null) {
+//                    secondSearch.stop();
+                    secondSearch.pause();
+                }
             }
         });
         continue1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                firstSearch.resume();
-//                firstSearch.myResume();
+                if (firstSearch != null) {
+//                    firstSearch.resume();
+                    firstSearch.myResume();
+                }
             }
         });
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                secondSearch.resume();
-//                secondSearch.myResume();
+                if (secondSearch != null) {
+//                    secondSearch.resume();
+                    secondSearch.myResume();
+                }
             }
         });
         setVisible(true);

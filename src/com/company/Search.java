@@ -19,7 +19,8 @@ public class Search extends Thread {
     private String str;
     private Boolean searchLine;
     private JTextArea out;
-//    private Boolean running = false;
+    public Integer count = 1;
+    private Boolean running = false;
     
 
     public Search() {
@@ -33,14 +34,12 @@ public class Search extends Thread {
         this.str = str;
         this.searchLine = searchLine;
         this.out = out;
-//        running = true;
+        running = true;
         super.start();
     }
 
     @Override
     public void run() {
-        findedPath = null;
-        findedPath = new ArrayList<String>();
         func(path);
         if (findedPath.size() <= 0) {
             findedPath.add("No files found :(");
@@ -52,62 +51,67 @@ public class Search extends Thread {
 //        }
     }
 
-//    public void pause() {
-//        running = false;
-//    }
-//    public void myResume() {
-//        running = true;
-//    }
+    public void pause() {
+        running = false;
+    }
+    public void myResume() {
+        running = true;
+    }
 
     public void func(String path) {
-//        if (running) {
-            File f = new File(path);
-            String[] list = f.list();
-            if (!path.endsWith(slash)) {
-                path += slash;
+        while (!running) {
+            try {
+                this.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            if (list == null) {
-                return;
-            }
-            for (String file : list) {
-                if (!template) {
-                    if (file.contains(find)) {
-                        if ((searchLine && isFileContains(path + file, str)) || !searchLine) {
-                            findedPath.add(path + file + "\n");
-                            out.append(path + file + "\n");
-    //                    System.out.println(path + file + " find!");
-                        }
+        }
+        File f = new File(path);
+        String[] list = f.list();
+        if (!path.endsWith(slash)) {
+            path += slash;
+        }
+        if (list == null) {
+            return;
+        }
+        for (String file : list) {
+            if (!template) {
+                if (file.contains(find)) {
+                    if ((searchLine && isFileContains(path + file, str)) || !searchLine) {
+                        findedPath.add(path + file + "\n");
+                        out.append(count++ + ". " + path + file + "\n");
+//                    System.out.println(path + file + " find!");
                     }
-                } else {
-                    //Function is suck! You need to repair it. (Use split)
-                    if (file.contains(".") && (!find.contains(".") || file.substring(file.indexOf(".")).equals(find.substring(find.indexOf("."))))) {
-                        String begin = find.substring(0, find.indexOf("*"));
-                        if (file.startsWith(begin)) {
-                            String end;
-                            if (find.contains(".")) {
-                                end = find.substring(find.indexOf("*") + 1, find.indexOf("."));
-                            } else {
-                                end = find.substring(find.indexOf("*")+1);
-                            }
-                            String fileName = file.substring(0, file.indexOf("."));
-                            if (fileName.endsWith(end)) {
-                                if ((searchLine && isFileContains(path + file, str)) || !searchLine) {
-                                    findedPath.add(path + file + "\n");
-                                    out.append(path + file + "\n");
-                                    //System.out.println(path + slash + file + " find!");
-                                }
+                }
+            } else {
+                //Function is suck! You need to repair it. (Use split)
+                if (file.contains(".") && (!find.contains(".") || file.substring(file.indexOf(".")).equals(find.substring(find.indexOf("."))))) {
+                    String begin = find.substring(0, find.indexOf("*"));
+                    if (file.startsWith(begin)) {
+                        String end;
+                        if (find.contains(".")) {
+                            end = find.substring(find.indexOf("*") + 1, find.indexOf("."));
+                        } else {
+                            end = find.substring(find.indexOf("*")+1);
+                        }
+                        String fileName = file.substring(0, file.indexOf("."));
+                        if (fileName.endsWith(end)) {
+                            if ((searchLine && isFileContains(path + file, str)) || !searchLine) {
+                                findedPath.add(path + file + "\n");
+                                out.append(count++ + ". " + path + file + "\n");
+                                //System.out.println(path + slash + file + " find!");
                             }
                         }
                     }
                 }
-                File tempfile = new File(path + file);
-                if (!file.equals(".") && !file.equals("")) {
-                    if (tempfile.isDirectory()) {
-                        func(path + file);
-                    }
+            }
+            File tempfile = new File(path + file);
+            if (!file.equals(".") && !file.equals("")) {
+                if (tempfile.isDirectory()) {
+                    func(path + file);
                 }
             }
-//        }
+        }
     }
 
     public Boolean isFileContains(String path, String neededLine) {
