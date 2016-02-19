@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
-//Pause and Resume!
+//I don't know another way to do Pause/Resume, so...
+//Bezverhi go fuck yourself, I don't want to waste my time!
 public class Window extends JFrame {
     public  static Integer FIRST_SEARCH = 1;
     public  static Integer SECOND_SEARCH = 2;
@@ -144,7 +145,7 @@ public class Window extends JFrame {
             path.setText(c.getSelectedFile().toString());
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
-            //TODO
+
         }
     }
 }
