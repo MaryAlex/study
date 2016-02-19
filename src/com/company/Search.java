@@ -40,6 +40,7 @@ public class Search extends Thread {
     public void run() {
         func(path);
         if (findedPath.size() <= 0) {
+            out.append("No files found :(\n");
             findedPath.add("No files found :(");
         }
 //        } else {
@@ -82,7 +83,7 @@ public class Search extends Thread {
                     }
                 }
             } else {
-                //Function is suck! You need to repair it. (Use split)
+                //TODO Function is suck! You need to repair it. (Use split)
                 if (file.contains(".") && (!find.contains(".") || file.substring(file.indexOf(".")).equals(find.substring(find.indexOf("."))))) {
                     String begin = find.substring(0, find.indexOf("*"));
                     if (file.startsWith(begin)) {
@@ -113,6 +114,7 @@ public class Search extends Thread {
     }
 
     public Boolean isFileContains(String path, String neededLine) {
+        //TODO Maybe try search in .doc files?
         if (path.endsWith(".txt")) {
             File file = new File(path);
             try {
