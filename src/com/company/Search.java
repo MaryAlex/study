@@ -1,6 +1,5 @@
 package com.company;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.swing.*;
 import java.io.File;
@@ -8,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class Search extends Thread {
     public static String slash = File.separator;
