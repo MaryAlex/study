@@ -83,7 +83,24 @@ public class Search extends Thread {
                     }
                 }
             } else {
-                //TODO Function is suck! You need to repair it. (Use split)
+                //Function with split, but also suck. Must add when only "*", because in that one is exeption
+//                if (!find.contains(".") || file.endsWith(find.substring(find.indexOf(".")))) {
+//                    String[] parts = find.split("\\*");
+//                    Boolean flag = true;
+//                    if (file.startsWith(parts[0]) && file.endsWith(parts[parts.length-1])) {
+//                        for (int i = 1; i < parts.length-1; i++) {
+//                            if (!file.contains(parts[i])) {
+//                                flag = false;
+//                                break;
+//                            }
+//                        }
+//                        if (flag) {
+//                            findedPath.add(path + file + "\n");
+//                            out.append(count++ + ". " + path + file + "\n");
+//                            System.out.println(path + slash + file + " find!");
+//                        }
+//                    }
+//                }
                 if (file.contains(".") && (!find.contains(".") || file.substring(file.indexOf(".")).equals(find.substring(find.indexOf("."))))) {
                     String begin = find.substring(0, find.indexOf("*"));
                     if (file.startsWith(begin)) {
