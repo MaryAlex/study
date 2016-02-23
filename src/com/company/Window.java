@@ -35,7 +35,6 @@ public class Window extends JFrame {
     Search firstSearch;
     Search secondSearch;
 
-    //TODO Stop button
     public Window() throws HeadlessException {
         super("Hello");
         setContentPane(panel);
@@ -104,8 +103,12 @@ public class Window extends JFrame {
         });
         setVisible(true);
     }
-    //TODO Check if file is txt, when checkbox line is active
     public void search (JCheckBox searchLine, JCheckBox template, JTextField str, JTextField find, JTextField path, JTextArea out, Integer searchThread) {
+        if (searchLine.isSelected() && template.isSelected()) {
+            if (!find.getText().endsWith(".txt")) {
+                JOptionPane.showMessageDialog(Window.this, "File must be .txt");
+            }
+        }
         if (searchLine.isSelected() && str.getText().isEmpty()) {
             JOptionPane.showMessageDialog(Window.this, "Input what line I must search in files, please");
             return;
@@ -121,7 +124,7 @@ public class Window extends JFrame {
                     firstSearch = null;
                     firstSearch = new Search();
                     firstSearch.start(path.getText(), find.getText(), template.isSelected(), str.getText(), searchLine.isSelected(), out);
-                } else if (searchThread == 2){
+                } else if (searchThread == 2) {
                     secondSearch = null;
                     secondSearch = new Search();
                     secondSearch.start(path.getText(), find.getText(), template.isSelected(), str.getText(), searchLine.isSelected(), out);

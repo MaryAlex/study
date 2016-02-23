@@ -114,7 +114,6 @@ public class Search extends Thread {
     }
 
     public Boolean isFileContains(String path, String neededLine) {
-        //TODO Maybe try search in .doc files?
         if (path.endsWith(".txt")) {
             File file = new File(path);
             try {
